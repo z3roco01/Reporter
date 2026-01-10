@@ -3,7 +3,6 @@
 	"package": "z3roco01.reporter.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
