@@ -1,9 +1,5 @@
 package z3roco01.reporter;
 
-import net.dv8tion.jda.api.interactions.InteractionContextType;
-import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -28,12 +24,21 @@ public class Reporter implements ModInitializer {
             throw new RuntimeException(e);
         }
 
-        BotManager.register();
-        CommandListUpdateAction commands = BotManager.bot.updateCommands();
+        BotManager.create();
+    }
 
-        commands.addCommands(Commands.slash("server", "Gives info on the server's current status")
-                .setContexts(InteractionContextType.GUILD)
-                .setDefaultPermissions(DefaultMemberPermissions.ENABLED));
-        commands.queue();
+    /**
+     * Easily sets the discord channel id in the config and bot and saves it
+     */
+    public static void setDiscordChannel(String id) {
+        config.channelId = id;
+
+        try {
+            ConfigFile.store("./config/reporter.conf", config);
+        } catch (IOException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        BotManager.updateChannel(id);
     }
 }
