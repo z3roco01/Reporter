@@ -30,8 +30,8 @@ public class BotManager {
                 .addEventListeners(new BotEventListener())
                 .build();
 
-        updateChannel(Reporter.config.channelId);
         createCommands();
+        updateChannel(Reporter.config.channelId);
     }
 
     private static void createCommands() {

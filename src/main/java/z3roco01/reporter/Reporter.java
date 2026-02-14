@@ -24,6 +24,8 @@ public class Reporter implements ModInitializer {
             throw new RuntimeException(e);
         }
 
+        LOGGER.info(config.channelId);
+
         BotManager.create();
     }
 
