@@ -2,10 +2,12 @@ package z3roco01.reporter;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import z3roco01.composed.file.ConfigFile;
+import z3roco01.reporter.command.AdminCommands;
 import z3roco01.reporter.discord.BotManager;
 
 import java.io.IOException;
@@ -27,6 +29,8 @@ public class Reporter implements ModInitializer {
 
         BotManager.create();
 
+        CommandRegistrationCallback.EVENT.register(AdminCommands::register);
+
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             BotManager.updateChannel(config.channelId);
             BotManager.sendMessage(config.startingMessage);
@@ -35,6 +39,7 @@ public class Reporter implements ModInitializer {
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
             BotManager.sendMessage(config.stoppingMessage);
         });
+
     }
 
     /**
