@@ -23,8 +23,8 @@ public abstract class ServerPlayNetworkHandlerMixin {
     @Inject(method = "sendChatMessage", at = @At("HEAD"))
     private void sendChatMessage(SignedMessage message, MessageType.Parameters params, CallbackInfo ci) {
         String discMsg = Reporter.config.messageTemplate;
-        discMsg = discMsg.replaceFirst("%n", params.name().toString());
-        discMsg = discMsg.replaceFirst("%m", message.getContent().getLiteralString());
+        discMsg = discMsg.replace("%n", params.name().getString());
+        discMsg = discMsg.replace("%m", message.getContent().getLiteralString());
         BotManager.sendMessage(discMsg);
     }
 }
