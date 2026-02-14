@@ -25,11 +25,22 @@ dependencies {
 
     modApi ("com.github.z3roco01:composed:${project.composed_version}")
 
-    include implementation("net.dv8tion:JDA:${project.jda_version}") {
+    include modImplementation("net.dv8tion:JDA:${project.jda_version}") {
         // exclude audio libraries, to cut down jar size
         exclude module: 'opus-java'
         exclude module: 'tink'
     }
+	include modImplementation("net.sf.trove4j:core:3.1.0")
+	include modImplementation("org.apache.commons:commons-collections4:4.4")
+	include modImplementation("org.slf4j:slf4j-api:2.0.17")
+	include modImplementation("com.neovisionaries:nv-websocket-client:2.14")
+	include modImplementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+	include modImplementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+	include modImplementation("com.fasterxml.jackson.core:jackson-annotations:2.18.3")
+	include modImplementation("com.squareup.okhttp3:okhttp:4.12.0")
+	include modImplementation("com.squareup.okio:okio-jvm:3.6.0")
+	include modImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
+
 }
 
 processResources {
