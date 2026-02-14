@@ -22,7 +22,9 @@ public abstract class ServerPlayNetworkHandlerMixin {
 
     @Inject(method = "sendChatMessage", at = @At("HEAD"))
     private void sendChatMessage(SignedMessage message, MessageType.Parameters params, CallbackInfo ci) {
-        Reporter.LOGGER.info("<" + params.name().getString() + "> " + message.getContent().getLiteralString());
-        BotManager.sendMessage("<" + params.name().getString() + "> " + message.getContent().getLiteralString());
+        String discMsg = Reporter.config.messageTemplate;
+        discMsg = discMsg.replaceFirst("%n", params.name().toString());
+        discMsg = discMsg.replaceFirst("%m", message.getContent().getLiteralString());
+        BotManager.sendMessage(discMsg);
     }
 }

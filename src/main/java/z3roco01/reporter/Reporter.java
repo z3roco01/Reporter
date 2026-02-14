@@ -2,6 +2,7 @@ package z3roco01.reporter;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import z3roco01.composed.file.ConfigFile;
@@ -24,9 +25,16 @@ public class Reporter implements ModInitializer {
             throw new RuntimeException(e);
         }
 
-        LOGGER.info(config.channelId);
-
         BotManager.create();
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            BotManager.updateChannel(config.channelId);
+            BotManager.sendMessage(config.startingMessage);
+        });
+
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+            BotManager.sendMessage(config.stoppingMessage);
+        });
     }
 
     /**
